@@ -41,11 +41,12 @@ export function getScoreByTypeApi(type, page, size){
     })
 }
 
-//查询详情页
-export function getScoreDetailsByIdApi(id){
+
+export function getScoreDetailsByIdApi(id) {
     return axiosInstance({
-        url: 'anyone/score/detail/' + id
-    })
+        url: 'anyone/score/detail/'+id,
+
+    });
 }
 
 

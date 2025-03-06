@@ -15,5 +15,7 @@ import AllScoresPanel from '@/components/home/AllScoresPanel.vue';
 
 
 <style>
-
+.home-page{
+  background-color: rgb(238, 240, 242);
+}
 </style>
