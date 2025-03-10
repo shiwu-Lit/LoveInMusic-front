@@ -13,7 +13,7 @@ export function getSuggestListApi(keywords){
 //根据关键词分页查询商品列表
 export function getScoreListBySearchApi(keywords, page, pageSize){
     return axiosInstance({
-        url: '/anyone/score/key',
+        url: 'anyone/score/key',
         params: {
             keywords: keywords,
             page: page,
@@ -25,7 +25,7 @@ export function getScoreListBySearchApi(keywords, page, pageSize){
 //查询所有分类商品
 export function getTypeScoreApi(){
     return axiosInstance({
-        url: '/anyone/score'
+        url: 'anyone/scoretype'
     })
 }
 

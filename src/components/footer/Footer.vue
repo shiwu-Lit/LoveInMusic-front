@@ -1,47 +1,39 @@
 <script setup>
-const footerItem = [
-  {
-    title: '配送方式',
-    context: ['上门自提', '24小时达', '配送服务查询', '配送费用标准', '联系客服']
-  },
-  {
-    title: '支付方式',
-    context: ['货到付款', '在线支付', '分期付款', '公司转账']
-  },
-  {
-    title: '售后服务',
-    context: ['售后政策', '价格保护', '退款说明', '返修/退换货', '取消订单']
-  }
-]
 </script>
 
 <template>
-
-<div class="container">
-  <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-  <!--logo -->
-    <div class="col">
-      <a href="/" class="d-flex mb-3">
-        <i class="bi bi-shop-window display-5 text-danger"></i>
-      </a>
-      <p class="text-muted">© 2024</p>
+  <footer class="bg-light text-center text-muted py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p class="mb-1">
+            <a href="#" class="text-muted text-decoration-none me-3">让音乐与你同在</a>
+            <a href="mailto:contact@loveinmusic.com" class="text-muted text-decoration-none me-3">contact@loveinmusic.com</a>
+            <a href="#" class="text-muted text-decoration-none me-3"></a>
+            <a href="#" class="text-muted text-decoration-none">隐私政策</a>
+            <a href="#" class="text-muted text-decoration-none">Cookie 设置</a>
+          </p>
+          <p class="mb-0 small">
+            <span>♥</span> 版权所有 © 2024 LoveInMusic
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="col"></div>
-    <!--右边列表-->
-    <div class="col" v-for="item in footerItem">
-      <h5 class="text-danger">{{item.title}}</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2" v-for="c in item.context">
-          <a href="#" class="nav-link p-0 text-muted">{{c}}</a>
-        </li>
-      </ul>
-    </div>
-
   </footer>
-</div>
-
 </template>
 
 <style scoped>
+footer {
+  border-top: 1px solid #eee;
+}
 
+footer a:hover {
+  color: #dc3545 !important; /* 鼠标悬停时变为红色，与你的品牌色匹配 */
+}
+
+@media (max-width: 576px) {
+  footer .row > div {
+    padding: 0.5rem;
+  }
+}
 </style>

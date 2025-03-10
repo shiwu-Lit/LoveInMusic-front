@@ -1,21 +1,17 @@
 <template>
   <div class="home-page">
-    <!-- 热门曲谱轮播 -->
     <HotScoresCarousel/>
-
-    <!-- 所有曲谱列表 -->
     <AllScoresPanel />
   </div>
 </template>
 
 <script setup>
 import HotScoresCarousel from '@/components/hot/HotScoresCarousel.vue';
-import AllScoresPanel from '@/components/home/AllScoresPanel.vue';
+import AllScoresPanel from '@/components/all/AllScoresPanel.vue';
 </script>
 
-
 <style>
-.home-page{
+.home-page {
   background-color: rgb(238, 240, 242);
 }
 </style>

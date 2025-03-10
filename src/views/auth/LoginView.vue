@@ -1,83 +1,118 @@
 <script setup>
-
-import Footer from "@/components/footer/Footer.vue";
 import Nav from "@/components/nav/Nav.vue";
-import {useForm} from "vee-validate";
+import Footer from "@/components/footer/Footer.vue";
+import { useForm } from "vee-validate";
 import * as yup from "yup";
-import {userLoginApi} from "@/apis/user.js";
-import {useAuthStore} from "@/stores/auth.js";
-import {useRouter} from "vue-router";
+import { userLoginApi } from "@/apis/user.js";
+import { useAuthStore } from "@/stores/auth.js";
+import { useRouter } from "vue-router";
 
-const {errors, handleSubmit, defineInputBinds} = useForm({
-    validationSchema: yup.object({
-        username: yup.string().trim().required('请输入账号'),
-        password: yup.string().trim().required('请输入密码')
-    })
-})
+const { errors, handleSubmit, defineInputBinds } = useForm({
+  validationSchema: yup.object({
+    username: yup.string().trim().required("请输入账号"),
+    password: yup.string().trim().required("请输入密码"),
+  }),
+});
 
-const username = defineInputBinds('username')
-const password = defineInputBinds('password')
+const username = defineInputBinds("username");
+const password = defineInputBinds("password");
 
 const authStore = useAuthStore();
 const router = useRouter();
 
-const onSubmit = handleSubmit(function ({username, password}) {
-	userLoginApi(username, password)
-        .then(resp => {
-            //将 用户名、token、角色列表存入pinia
-            authStore.username = resp.data.username
-            authStore.token = resp.data.token
-            authStore.role = resp.data.role
-            setTimeout(() => {
-                router.push('/')
-            }, 2000)
-        })
-})
+const onSubmit = handleSubmit(function ({ username, password }) {
+  userLoginApi(username, password).then((resp) => {
+    authStore.username = resp.data.username;
+    authStore.token = resp.data.token;
+    authStore.role = resp.data.role;
+    setTimeout(() => {
+      router.push("/");
+    }, 2000);
+  });
+});
 </script>
 
 <template>
-    <Nav/>
+  <Nav />
+  <!-- 登录主体 -->
+  <div class="login-container d-flex align-items-center justify-content-center min-vh-100 bg-light">
+    <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
+      <div class="card-body">
+        <h2 class="text-center mb-4 text-primary">用户登录</h2>
+        <form @submit="onSubmit">
+          <div class="mb-3">
+            <label for="username" class="form-label">账号</label>
+            <input
+                v-bind="username"
+                type="text"
+                class="form-control"
+                id="username"
+                placeholder="请输入账号"
+                :class="{ 'is-invalid': errors.username }"
+            />
+            <div class="invalid-feedback">{{ errors.username }}</div>
+          </div>
 
-    <!--注册主体-->
-    <div class="container col-xl-10 col-xxl-8 px-4 py-5 my-5">
-        <div class="row align-items-center g-lg-5 py-5">
-            <div class="col-lg-7 text-center text-lg-start">
+          <div class="mb-3">
+            <label for="password" class="form-label">密码</label>
+            <input
+                v-bind="password"
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="请输入密码"
+                :class="{ 'is-invalid': errors.password }"
+            />
+            <div class="invalid-feedback">{{ errors.password }}</div>
+          </div>
 
-            </div>
-            <div class="col-md-10 mx-auto col-lg-5">
-                <form class="p-4 p-md-5 border bg-light" action="" @submit="onSubmit">
-
-                    <div class="form-floating mb-3">
-                        <input type="text"
-                               class="form-control rounded-0"
-                               placeholder="账号"
-                               v-bind="username"
-                               name="username">
-                        <label>账号</label>
-                        <p class="text-danger fw-lighter">{{ errors.username }}</p>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="password"
-                               class="form-control rounded-0"
-                               placeholder="密码"
-                               v-bind="password"
-                               name="password">
-                        <label>密码</label>
-                        <p class="text-danger fw-light">{{ errors.password }}</p>
-                    </div>
-
-                    <button class="w-100 btn btn-lg btn-danger rounded-0 mb-3" type="submit">登录</button>
-                    <RouterLink to="/register" class="text-muted text-decoration-none">没有账号？去注册</RouterLink>
-                    <hr class="my-3">
-                    <small class="text-muted">用户登录行为默认同意 <a href="#" class="text-decoration-none">网站条款</a></small>
-                </form>
-            </div>
-        </div>
+          <button type="submit" class="btn btn-primary w-100 mb-3">登录</button>
+          <p class="text-center text-muted">
+            没有账号？
+            <RouterLink to="/register" class="text-decoration-none">立即注册</RouterLink>
+          </p>
+          <hr class="my-3" />
+          <p class="text-center text-muted small">
+            登录即表示您同意
+            <a href="#" class="text-decoration-none">网站条款</a>
+          </p>
+        </form>
+      </div>
     </div>
-
-    <Footer/>
+  </div>
+  <Footer />
 </template>
 
 <style scoped>
+.login-container {
+  background: url("@/assets/lgbg.png") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.btn-primary {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-primary:hover {
+  background-color: #bb2d3b;
+  border-color: #bb2d3b;
+}
+
+.invalid-feedback {
+  font-size: 0.875rem;
+}
+
+.text-primary {
+  color: #dc3545 !important;
+}
 </style>
